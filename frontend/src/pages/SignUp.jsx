@@ -19,14 +19,17 @@ import { toast } from 'react-toastify'
 
 export default function SignUp() {
   const navigate = useNavigate()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+
+  const [isLoading, setIsLoading] = useState(false)
   const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
 
     try {
+      setIsLoading(true)
       const response = await fetch('http://localhost:3001/api/users/signup', {
         method: 'POST',
         headers: {
@@ -48,6 +51,8 @@ export default function SignUp() {
       }
     } catch (error) {
       toast.error('An error occurred. Please try again later.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -105,8 +110,8 @@ export default function SignUp() {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full">
-                    Create
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? 'Loading...' : 'Create'}
                   </Button>
                 </div>
 
