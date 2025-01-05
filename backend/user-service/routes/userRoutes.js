@@ -19,11 +19,11 @@ router.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     // Create the user with the hashed password
-    const user = await User.create({ name, email, password: hashedPassword });
+    const user = await User.create({ name, email, password: hashedPassword, role: 'user' });
 
     res.status(201).json({
       message: 'User created successfully',
-      user: { id: user._id, email: user.email, name: user.name }
+      user: { id: user._id, email: user.email, name: user.name, role: user.role }
     });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
   
       // Generate JWT token
       const token = jwt.sign(
-        { id: user._id, email: user.email },
+        { id: user._id, email: user.email, role: user.role },
         process.env.SECRET_KEY, // Secret key from environment variable
         { expiresIn: '1h' } // Token expiration time
       );
@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
       res.status(200).json({
         message: 'Login successful',
         token,
-        user: { id: user._id, email: user.email, name: user.name }
+        user: { id: user._id, email: user.email, name: user.name, role: user.role }
       });
     } catch (error) {
       console.error('Error during login:', error);

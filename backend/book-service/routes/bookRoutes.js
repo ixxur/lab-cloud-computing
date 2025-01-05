@@ -1,10 +1,12 @@
 const express = require('express');
 const Book = require('../models/Book');
+const authenticateToken = require('../middleware/authenticateToken');
+const authorizeAdmin = require('../middleware/authorizeAdmin');
 
 const router = express.Router();
 
 // Create a book
-router.post('/add', async (req, res) => {
+router.post('/add', authenticateToken, authorizeAdmin, async (req, res) => {
   try {
     const book = await Book.create(req.body);
     res.status(201).send(book);
@@ -35,7 +37,7 @@ router.get('/:id', async (req, res) => {
     }
   });
 
-  router.put('/:id/borrow', async (req, res) => {
+  router.put('/:id/borrow', authenticateToken, authorizeAdmin, async (req, res) => {
     try {
       const book = await Book.findById(req.params.id);
       if (!book) {
@@ -54,7 +56,7 @@ router.get('/:id', async (req, res) => {
     }
   });
 
-  router.put('/:id/return', async (req, res) => {
+  router.put('/:id/return', authenticateToken, authorizeAdmin, async (req, res) => {
     try {
       const book = await Book.findById(req.params.id);
       if (!book) {

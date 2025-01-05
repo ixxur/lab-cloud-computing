@@ -17,11 +17,11 @@ This project demonstrates a microservices-based architecture for managing a libr
 ### Book Service
 - **Port**: `3002`
 - **Functionalities**:
-  - `POST /api/books/add`: Add a new book to the library. (doesn't require a token)
+  - `POST /api/books/add`: Only admins can add a new book to the library.
   - `GET /api/books`: Retrieve all books in the library. (doesn't require a token)
   - `GET /api/books/:id`: Retrieve a book by its ID. (doesn't require a token)
-  - `PUT /api/books/:id/borrow`: Mark a book as borrowed. (doesn't require a token)
-  - `PUT /api/books/:id/return`: Mark a book as returned. (doesn't require a token)
+  - `PUT /api/books/:id/borrow`: Only admins can mark a book as borrowed. 
+  - `PUT /api/books/:id/return`: Only admins can mark a book as returned. 
 
 ### Borrowing Service
 - **Port**: `3003`
