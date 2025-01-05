@@ -1,0 +1,52 @@
+# version: "3.8"
+
+# services:
+#   user-service:
+#     build:
+#       context: .
+#     ports:
+#       - "${PORT}:${PORT}"
+#     environment:
+#       - PORT=${PORT}
+#       - MONGO_URI=${MONGO_URI}
+#       - SECRET_KEY=${SECRET_KEY}
+#     depends_on:
+#       - mongo
+
+#   mongo:
+#     image: mongo
+#     container_name: mongo
+#     ports:
+#       - "27017:27017"
+#     environment:
+#       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+#       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+#     volumes:
+#       - mongo_data:/data/db
+
+# volumes:
+#   mongo_data:
+
+
+
+version: "3.8"
+
+services:
+  user-service:
+    build:
+      context: .
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - PORT=${PORT}
+      - MONGO_URI=${MONGO_URI}
+      - SECRET_KEY=${SECRET_KEY}
+    networks:
+      - cloud-computing-shared-network
+    # depends_on:
+    #   - mongo
+
+networks:
+  cloud-computing-shared-network:
+    external: true
+
