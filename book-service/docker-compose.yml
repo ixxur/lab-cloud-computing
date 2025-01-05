@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  book-service:
+    build:
+      context: .
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - PORT=${PORT}
+      - MONGO_URI=${MONGO_URI}
+    networks:
+      - cloud-computing-shared-network
+    # depends_on:
+    #   - mongo
+
+networks:
+  cloud-computing-shared-network:
+    external: true
+
