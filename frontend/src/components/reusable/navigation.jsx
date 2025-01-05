@@ -4,20 +4,29 @@ import { toast } from 'react-toastify'
 import useUserStore from '../../store/userStore'
 
 import Logo from './logo'
+import { useEffect } from 'react'
 
 export default function Navigation() {
   const token = localStorage.getItem('token')
-  const { user, setUser, clearUser } = useUserStore()
+  const { user, setUser, clearUser, setIsFetched } = useUserStore()
 
-  if (token && !user) {
-    try {
-      const decodedUser = jwtDecode(token)
-      setUser(decodedUser)
-    } catch (error) {
-      toast.error('An error occurred. Please try again later.')
-      clearUser()
+  useEffect(() => {
+    if (!user) {
+      if (token) {
+        try {
+          const decoded = jwtDecode(token)
+          setUser(decoded)
+        } catch (error) {
+          toast.error('Invalid token')
+          clearUser()
+        } finally {
+          setIsFetched(true)
+        }
+      } else {
+        setIsFetched(true)
+      }
     }
-  }
+  }, [user])
 
   return (
     <nav className="flex justify-between items-center">
