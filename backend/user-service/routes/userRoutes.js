@@ -51,10 +51,10 @@ router.post('/login', async (req, res) => {
       if (!isPasswordValid) {
         return res.status(401).json({ message: 'Invalid email or password.' });
       }
-  
+
       // Generate JWT token
       const token = jwt.sign(
-        { id: user._id, email: user.email, role: user.role },
+        { id: user._id, email: user.email, role: user.role, name: user.name },
         process.env.SECRET_KEY, // Secret key from environment variable
         { expiresIn: '1h' } // Token expiration time
       );

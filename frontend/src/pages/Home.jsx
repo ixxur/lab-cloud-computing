@@ -1,10 +1,9 @@
-import React from 'react'
-import { Button } from '../components/ui/button'
+import Navigation from '../components/reusable/navigation'
 
 export default function Home() {
   return (
-    <div>
-      <Button>Click me</Button>
+    <div className="container mx-auto p-10 min-h-vsh flex flex-col">
+      <Navigation />
     </div>
   )
 }
