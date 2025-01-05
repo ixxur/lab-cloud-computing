@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import Home from './pages/Home'
-import LoginPage from './pages/Login'
 import SignupPage from './pages/SignUp'
+import LoginPage from './pages/Login'
 import Profile from './pages/Profile'
+import Borrows from './pages/Borrows'
+import Books from './pages/Books'
+import Home from './pages/Home'
 
 import { ToastContainer } from 'react-toastify'
 
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/books" element={<Books />} />
+          <Route path="/borrows" element={<Borrows />} />
         </Routes>
       </Router>
 
