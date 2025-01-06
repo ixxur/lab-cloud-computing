@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get a book by id
-router.get('/:id', authenticateToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
     if (!book) {

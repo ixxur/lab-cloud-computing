@@ -12,9 +12,7 @@ router.post('/borrow', authenticateToken, async (req, res) => {
 
     try {
         // Check book availability from book-service
-        const bookResponse = await axios.get(`${bookServiceUrl}/api/books/${bookId}`, {
-            headers: { Authorization: req.header('Authorization') },
-        });
+        const bookResponse = await axios.get(`${bookServiceUrl}/api/books/${bookId}`);
 
         if (!bookResponse.data.available) {
             return res.status(400).send('Book is not available for borrowing.');
