@@ -11,17 +11,23 @@ This project demonstrates a microservices-based architecture for managing a libr
 ### User Service
 - **Port**: `3001`
 - **Functionalities**:
-  - `POST /api/users/signup`: Register a new user.
-  - `POST /api/users/login`: Authenticate a user and return a JWT token.
+  - `POST /api/users/signup`: Register a new user with the default role as `user`.
+  - `POST /api/users/login`: Authenticate a user and return a JWT token for session management.
 
 ### Book Service
 - **Port**: `3002`
 - **Functionalities**:
-  - `POST /api/books/add`: Only admins can add a new book to the library.
-  - `GET /api/books`: Retrieve all books in the library. (doesn't require a token)
-  - `GET /api/books/:id`: Retrieve a book by its ID. (doesn't require a token)
-  - `PUT /api/books/:id/borrow`: Only admins can mark a book as borrowed. 
-  - `PUT /api/books/:id/return`: Only admins can mark a book as returned. 
+  - `POST /api/books/add`: Only admins can add a new book to the library. Requires:
+    - JWT token validation through `authenticateToken`.
+    - Admin role validation through `authorizeAdmin`.
+  - `GET /api/books`: Retrieve all books in the library with pagination support:
+    - Query Parameters:
+      - `page` (default: `1`): The current page of books.
+      - `limit` (default: `10`): The number of books per page.
+    - Example: `/api/books?page=2&limit=5`.
+  - `GET /api/books/:id`: Retrieve a book by its ID.
+  - `PUT /api/books/:id/borrow`: Mark a book as borrowed. 
+  - `PUT /api/books/:id/return`: Mark a book as returned. 
 
 ### Borrowing Service
 - **Port**: `3003`
@@ -34,7 +40,11 @@ This project demonstrates a microservices-based architecture for managing a libr
     - Verifying the user through a valid JWT token.
     - Confirming that the user is the one who borrowed the book.
     - Updating the book's status in the Book Service and closing the borrow record.
-  - `GET /api/borrows`: Retrieve all borrow records for the authenticated user.
+  - `GET /api/borrows`: Retrieve all borrow records for the authenticated user with pagination support:
+    - Query Parameters:
+      - `page` (default: `1`): The current page of borrow records.
+      - `limit` (default: `10`): The number of borrow records per page.
+    - Example: `/api/borrows?page=1&limit=5`.
 
 ---
 
