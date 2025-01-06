@@ -7,8 +7,8 @@ const Borrow = require('../models/Borrow');
 const router = express.Router();
 
 // Borrow a book
-router.post('/borrow', authenticateToken, async (req, res) => {
-    const { bookId } = req.body;
+router.post('/:bookId/borrow', authenticateToken, async (req, res) => {
+    const { bookId } = req.params;
 
     try {
         // Check book availability from book-service

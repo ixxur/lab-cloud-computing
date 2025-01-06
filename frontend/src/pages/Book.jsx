@@ -5,8 +5,10 @@ import { toast } from 'react-toastify'
 import Navigation from '../components/reusable/navigation'
 import Footer from '../components/reusable/footer'
 import { Button } from '../components/ui/button'
+import useUserStore from '../store/userStore'
 
 export default function Book() {
+  const { user } = useUserStore()
   const navigate = useNavigate()
   const { id } = useParams()
 
@@ -29,6 +31,30 @@ export default function Book() {
       toast.error('An error occurred. Please try again later.')
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  async function handleBorrowByUser() {
+    try {
+      const response = await fetch(
+        `http://localhost:3003/api/borrows/${id}/borrow`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      )
+
+      if (response.ok) {
+        fetchBookById()
+        toast.success('Book borrowed successfully')
+      } else {
+        const { message } = await response.json()
+        toast.error(message)
+      }
+    } catch (error) {
+      toast.error('An error occurred. Please try again later')
     }
   }
 
@@ -110,16 +136,29 @@ export default function Book() {
                     </dd>
                   </div>
 
-                  <div>
-                    <Button
-                      className="w-full mb-8 sm:mb-0"
-                      onClick={handleBorrowOrReturn}
-                    >
-                      {book.available
-                        ? 'Mark as Borrowed'
-                        : 'Mark as Available'}
-                    </Button>
-                  </div>
+                  {user?.role === 'admin' ? (
+                    <div>
+                      <Button
+                        className="w-full mb-8 sm:mb-0"
+                        onClick={handleBorrowOrReturn}
+                      >
+                        {book.available
+                          ? 'Mark as Borrowed'
+                          : 'Mark as Available'}
+                      </Button>
+                    </div>
+                  ) : (
+                    book.available && (
+                      <div>
+                        <Button
+                          className="w-full mb-8 sm:mb-0"
+                          onClick={handleBorrowByUser}
+                        >
+                          Borrow
+                        </Button>
+                      </div>
+                    )
+                  )}
                 </dl>
               </div>
             </div>
