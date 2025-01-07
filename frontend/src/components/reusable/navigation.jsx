@@ -57,7 +57,7 @@ export default function Navigation() {
           <li className="inline-block mx-4">
             <a href="/login">Login</a>
           </li>
-          <li className="inline-block mx-4">
+          <li className="hidden sm:inline-block mx-4">
             <a href="/signup">Sign up</a>
           </li>
         </ul>
