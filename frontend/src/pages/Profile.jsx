@@ -11,10 +11,11 @@ import { Button } from '../components/ui/button'
 export default function Profile() {
   const navigate = useNavigate()
 
-  const { user, isFetched } = useUserStore()
+  const { user, isFetched, clearUser } = useUserStore()
 
   async function handleLogout() {
     localStorage.removeItem('token')
+    clearUser()
     navigate('/login')
   }
 
