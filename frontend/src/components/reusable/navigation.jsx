@@ -15,6 +15,13 @@ export default function Navigation() {
       if (token) {
         try {
           const decoded = jwtDecode(token)
+
+          if (decoded.exp < Date.now() / 1000) {
+            toast.error('Token expired')
+            clearUser()
+            return
+          }
+
           setUser(decoded)
         } catch (error) {
           toast.error('Invalid token')

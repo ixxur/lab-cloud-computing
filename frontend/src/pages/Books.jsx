@@ -16,7 +16,7 @@ import {
 
 export default function Books() {
   const [books, setBooks] = useState({ data: [], total: 0, page: 1, limit: 10 })
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -39,16 +39,16 @@ export default function Books() {
     }
   }
 
+  const handlePageChange = (newPage) => {
+    navigate(`?page=${newPage}`)
+  }
+
   useEffect(() => {
+    setIsLoading(true)
     const query = new URLSearchParams(location.search)
     const page = parseInt(query.get('page')) || 1
     fetchAllBooks(page)
   }, [location.search])
-
-  const handlePageChange = (newPage) => {
-    setIsLoading(true)
-    navigate(`?page=${newPage}`)
-  }
 
   return (
     <div className="container mx-auto p-10 min-h-screen flex flex-col justify-between">
