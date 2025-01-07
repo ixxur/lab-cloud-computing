@@ -32,7 +32,7 @@ This project demonstrates a microservices-based architecture for managing a libr
 ### Borrowing Service
 - **Port**: `3003`
 - **Functionalities**:
-  - `POST /api/borrows/borrow`: Borrow a book. This requires:
+  - `POST /api/borrows/:id/borrow`: Borrow a book. This requires:
     - Verifying the user through a valid JWT token.
     - Checking the book's availability from the Book Service.
     - Creating a borrow record and updating the book's status in the Book Service.

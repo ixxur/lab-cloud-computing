@@ -15,7 +15,7 @@ export default function Book() {
 
   async function fetchBookById() {
     try {
-      const response = await fetch(`http://localhost:3002/api/books/${id}`)
+      const response = await fetch(`${import.meta.env.VITE_BOOKS_API_BASE_URL}/${id}`)
 
       if (response.ok) {
         const data = await response.json()
@@ -35,7 +35,7 @@ export default function Book() {
   async function handleBorrow() {
     try {
       const response = await fetch(
-        `http://localhost:3003/api/borrows/${id}/borrow`,
+        `${import.meta.env.VITE_BORROW_API_BASE_URL}/${id}/borrow`,
         {
           method: 'POST',
           headers: {

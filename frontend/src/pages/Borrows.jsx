@@ -29,7 +29,7 @@ export default function Borrows() {
   async function returnBookHandler(borrowId) {
     try {
       const response = await fetch(
-        `http://localhost:3003/api/borrows/${borrowId}/return`,
+        `${import.meta.env.VITE_BORROW_API_BASE_URL}/${borrowId}/return`,
         {
           method: 'POST',
           headers: {
@@ -61,7 +61,7 @@ export default function Borrows() {
   async function fetchAllBorrows(page = 1) {
     try {
       const response = await fetch(
-        `http://localhost:3003/api/borrows?page=${page}&limit=${borrows.limit}`,
+        `${import.meta.env.VITE_BORROW_API_BASE_URL}?page=${page}&limit=${borrows.limit}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -80,7 +80,7 @@ export default function Borrows() {
 
       for (const borrow of copyOfborrows) {
         const bookResponse = await fetch(
-          `http://localhost:3002/api/books/${borrow.bookId}`,
+          `${import.meta.env.VITE_BOOKS_API_BASE_URL}/${borrow.bookId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,

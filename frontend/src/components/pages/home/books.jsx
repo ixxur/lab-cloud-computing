@@ -9,7 +9,7 @@ export default function Books() {
   async function fetchAllBooks() {
     try {
       const response = await fetch(
-        `http://localhost:3002/api/books?page=${books.page}&limit=${books.limit}`
+        `${import.meta.env.VITE_BOOKS_API_BASE_URL}?page=${books.page}&limit=${books.limit}`
       )
 
       if (!response.ok) {

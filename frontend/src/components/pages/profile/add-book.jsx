@@ -26,7 +26,7 @@ export default function AddBook() {
 
     try {
       setIsLoading(true)
-      const response = await fetch('http://localhost:3002/api/books/add', {
+      const response = await fetch(`${import.meta.env.VITE_BOOKS_API_BASE_URL}/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

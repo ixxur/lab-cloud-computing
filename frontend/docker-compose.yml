@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+    ports:
+      - "${VITE_PORT}:${VITE_PORT}"
+    environment:
+      - VITE_PORT=${VITE_PORT}
+      - VITE_BOOKS_API_BASE_URL=${VITE_BOOKS_API_BASE_URL}
+      - VITE_USERS_API_BASE_URL=${VITE_USERS_API_BASE_URL}
+      - VITE_BORROW_API_BASE_URL=${VITE_BORROW_API_BASE_URL}
+    networks:
+      - cloud-computing-shared-network
+
+networks:
+  cloud-computing-shared-network:
+    external: true
