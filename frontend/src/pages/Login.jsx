@@ -29,7 +29,8 @@ export default function Login() {
 
     try {
       setIsLoading(true)
-      const response = await fetch('http://localhost:3001/api/users/login', {
+      console.log(import.meta.env.VITE_USERS_API_BASE_URL);
+      const response = await fetch(`${import.meta.env.VITE_USERS_API_BASE_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,6 +48,7 @@ export default function Login() {
         toast.error(message)
       }
     } catch (error) {
+      console.error("Login error:", error)
       toast.error('An error occurred. Please try again later.')
     } finally {
       setIsLoading(false)

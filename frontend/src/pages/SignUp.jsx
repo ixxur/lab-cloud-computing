@@ -30,7 +30,7 @@ export default function SignUp() {
 
     try {
       setIsLoading(true)
-      const response = await fetch('http://localhost:3001/api/users/signup', {
+      const response = await fetch(`${import.meta.env.VITE_USERS_API_BASE_URL}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

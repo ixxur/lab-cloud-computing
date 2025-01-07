@@ -23,7 +23,7 @@ export default function Books() {
   async function fetchAllBooks(page = 1) {
     try {
       const response = await fetch(
-        `http://localhost:3002/api/books?page=${page}&limit=${books.limit}`,
+        `${import.meta.env.VITE_BOOKS_API_BASE_URL}?page=${page}&limit=${books.limit}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
